@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Queries>
+	<InsertBulkUploadData>
+		<![CDATA[
+		INSERT INTO crudoperation.bulkuploadtable
+		(UserName, EmailID, MobileNumber, Age, Salary, Gender) 
+		VALUES
+		(@UserName, @EmailID, @MobileNumber, @Age, @Salary, @Gender);
+		]]>
+	</InsertBulkUploadData>
+	<ReadRecord>
+		<![CDATA[
+		SELECT DISTINCT UserId, 
+		       UserName, 
+			   EmailID, 
+			   MobileNumber, 
+			   Gender, 
+			   Age, 
+			   Salary, 
+			   IsActive,
+			   (SELECT COUNT(*) FROM crudoperation.bulkuploadtable) AS TotalRecord
+		FROM crudoperation.bulkuploadtable
+		LIMIT @Offset, @RecordPerPage;
+		]]>
+	</ReadRecord>
+	<DeleteRecord>
+		<![CDATA[
+		DELETE
+		FROM crudoperation.bulkuploadtable
+		WHERE UserID=@UserID;
+		]]>
+	</DeleteRecord>
+</Queries>
